@@ -25,26 +25,6 @@ public class WebSecurityConfig {
         auth.userDetailsService(securityService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
-    /*
-    (Caso o banco de dados fosse na memória, usaríamos esse bloco de código)
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
-        manager.createUser(User.withUsername("user")
-                .password("{noop}user123")
-                .roles("USERS")
-                .build());
-
-        manager.createUser(User.withUsername("admin")
-                .password("{noop}master123")
-                .roles("MANAGERS")
-                .build());
-
-        return manager;
-    }
-    */
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
