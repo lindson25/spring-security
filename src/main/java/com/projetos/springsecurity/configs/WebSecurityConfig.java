@@ -14,6 +14,7 @@ import org.springframework.security.config.Customizer;
 
 @Configuration
 @EnableWebSecurity
+// Habilita a segurança baseada em método, permitindo o uso de anotações de segurança.
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
@@ -22,6 +23,7 @@ public class WebSecurityConfig {
 
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+        // Método que configura o serviço de detalhes do usuário (UserDetailsService) e o codificador de senha
         auth.userDetailsService(securityService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
@@ -39,4 +41,21 @@ public class WebSecurityConfig {
         // (Caso for por tela de login ->) .formLogin(Customizer.withDefaults()); // Habilita a autenticação via formulário de login padrão
         return http.build();
     }
+
+    /*
+    (Caso o banco de dados fosse na memória, usaríamos esse bloco de código)
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user")
+                .password("{noop}user123")
+                .roles("USERS")
+                .build());
+        manager.createUser(User.withUsername("admin")
+                .password("{noop}master123")
+                .roles("MANAGERS")
+                .build());
+        return manager;
+    }
+    */
 }

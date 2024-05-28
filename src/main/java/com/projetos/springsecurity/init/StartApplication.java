@@ -9,14 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class StartApplication implements CommandLineRunner {
+
     @Autowired
     private UserRepository repository;
 
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+
+        // Busca por um usuário com nome de usuário "admin"
         User user = repository.findByUsername("admin");
 
+        // Se não houver usuário "admin", cria um novo
         if (user == null) {
             user = new User();
             user.setName("ADMIN");
@@ -26,7 +30,10 @@ public class StartApplication implements CommandLineRunner {
             repository.save(user);
         }
 
+        // Busca por um usuário com nome de usuário "user"
         user = repository.findByUsername("user");
+
+        // Se não houver usuário "user", cria um novo
         if (user == null) {
             user = new User();
             user.setName("USER");
