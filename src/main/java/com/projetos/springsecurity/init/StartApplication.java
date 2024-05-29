@@ -4,6 +4,7 @@ import com.projetos.springsecurity.models.User;
 import com.projetos.springsecurity.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,9 @@ public class StartApplication implements CommandLineRunner {
             user = new User();
             user.setName("ADMIN");
             user.setUsername("admin");
-            user.setPassword("master123");
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode("admin123"); // Criptografa a senha
+            user.setPassword(encodedPassword);
             user.getRoles().add("MANAGERS");
             repository.save(user);
         }
@@ -38,7 +41,9 @@ public class StartApplication implements CommandLineRunner {
             user = new User();
             user.setName("USER");
             user.setUsername("user");
-            user.setPassword("user123");
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode("user123"); // Criptografa a senha
+            user.setPassword(encodedPassword);
             user.getRoles().add("USERS");
             repository.save(user);
         }

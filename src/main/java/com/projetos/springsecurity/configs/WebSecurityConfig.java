@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -24,7 +25,7 @@ public class WebSecurityConfig {
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         // Método que configura o serviço de detalhes do usuário (UserDetailsService) e o codificador de senha
-        auth.userDetailsService(securityService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(securityService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Bean
